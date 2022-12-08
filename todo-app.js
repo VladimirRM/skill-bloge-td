@@ -26,3 +26,38 @@ const createTodoForm = () => {
     addButton,
   };
 };
+
+const createTodoList = () => {
+  const list = document.createElement("ul");
+  list.classList.add("list-group");
+
+  return list;
+};
+
+const createTodoItem = (name) => {
+  const todoItem = document.createElement("li");
+  const btnWrapper = document.createElement("div");
+  const doneBtn = document.createElement("button");
+  const deleteBtn = document.createElement("button");
+
+  todoItem.classList.add(
+    "list-group-item",
+    "d-flex",
+    "justify-content-between",
+    "align-items-center"
+  );
+  doneBtn.classList.add("btn", "btn-success");
+  deleteBtn.classList.add("btn", "btn-success");
+  todoItem.textContent = name;
+  doneBtn.textContent = "Done";
+  deleteBtn.textContent = "Delete";
+
+  btnWrapper.append(doneBtn, deleteBtn);
+  todoItem.append(btnWrapper);
+
+  return {
+    item,
+    doneBtn,
+    deleteBtn,
+  };
+};
