@@ -13,8 +13,9 @@ const createTodoForm = () => {
   form.classList.add("form-group", "mb-3");
   input.classList.add("form-control");
   input.placeholder = "Add Todo";
-  button.classList.add("btn", "btn-primary");
+  addButton.classList.add("btn", "btn-primary");
   wrapper.classList.add("input-group-append");
+  addButton.textContent = 'Add todo '
 
   wrapper.append(addButton);
   form.append(input);
@@ -47,10 +48,10 @@ const createTodoItem = (name) => {
     "align-items-center"
   );
   doneBtn.classList.add("btn", "btn-success");
-  deleteBtn.classList.add("btn", "btn-success");
+  deleteBtn.classList.add("btn", "btn-danger");
+  deleteBtn.textContent = "Delete";
   todoItem.textContent = name;
   doneBtn.textContent = "Done";
-  deleteBtn.textContent = "Delete";
 
   btnWrapper.append(doneBtn, deleteBtn);
   todoItem.append(btnWrapper);
@@ -62,7 +63,21 @@ const createTodoItem = (name) => {
   };
 };
 
+function createTodoApp(container, title, key) {
+  const appTitle = createAppTitle(title);
+  const appForm = createTodoForm();
+  const appList = createTodoList();
 
-const createTodoApp = ()=>{
-    
+  container.append(appTitle, appForm.form, appList);
+
+  appForm.form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const todoItem = createTodoItem(appForm.input.value);
+    if (!appForm.input.value) {
+      return;
+    }
+    appList.append(todoItem);
+    appForm.input.value = "";
+  });
 }
