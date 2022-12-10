@@ -11,19 +11,29 @@
     <title>Document</title>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        createTodoApp(document.getElementById("list-1"), "LIST-2", key ="list-2");
+        createTodoApp(
+          document.getElementById("list-2"),
+          "LIST-2",
+          (key = "list-2")
+        );
       });
     </script>
+    <style>
+      .nav__link {
+        margin-right: 20px;
+        display: inline-block;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
-        <nav class="nav">
-          <a class="nav__link" href="index.html">Todo List-1</a>
-          <a class="nav__link" href="#">Todo List-2 </a>
-          <a class="nav__link" href="list-3.html">Todo List-3</a>
-        </nav>
-      </div>
-    <div id="list-1" class="container"></div>
+      <nav class="nav">
+        <a class="nav__link" href="index.html">Todo List-1</a>
+        <a class="nav__link" href="#">Todo List-2 </a>
+        <a class="nav__link" href="list-3.html">Todo List-3</a>
+      </nav>
+    </div>
+    <div id="list-2" class="container"></div>
     <script src="todo-app.js"></script>
   </body>
 </html>
