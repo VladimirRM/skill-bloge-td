@@ -65,6 +65,7 @@ const createTodoItem = (name) => {
     todoItem,
     doneBtn,
     deleteBtn,
+    btnWrapper,
   };
 };
 
@@ -72,7 +73,7 @@ const changeItemDone = (arr, item) => {
   arr.map((obj) => {
     if ((obj.id === item.id) & (obj.done === false)) {
       obj.done = true;
-    } else {
+    } else if ((obj.id === item.id) & (obj.done === true)) {
       obj.done = false;
     }
   });
@@ -90,6 +91,11 @@ const completeTodoItem = (item, btn) => {
 const deleteTodoItem = (item, btn) => {
   btn.addEventListener("click", () => {
     if (confirm("Your rely?")) {
+      todoArray = JSON.parse(localStorage.getItem(key));
+
+      const newList = todoArray.filter((obj) => obj.id !== item.id);
+
+      localStorage.setItem(key, JSON.stringify(newList));
       item.remove();
     }
   });
@@ -101,7 +107,27 @@ function createTodoApp(container, title, key) {
   const appList = createTodoList();
 
   container.append(appTitle, appForm.form, appList);
+  if (localStorage.getItem(key)) {
+    todoArray = JSON.parse(localStorage.getItem(key));
 
+    for (const obj of todoArray) {
+      const todoItem = createTodoItem(appForm.input.value);
+
+      todoItem.todoItem.textContent = obj.name;
+      todoItem.todoItem.id = obj.id;
+
+      if (obj.done == true) {
+        todoItem.todoItem.classList.add("list-group-item-success");
+      } else {
+        todoItem.todoItem.classList.remove("list-group-item-success");
+      }
+      completeTodoItem(todoItem.todoItem, todoItem.doneBtn);
+      deleteTodoItem(todoItem.todoItem, todoItem.deleteBtn);
+
+      appList.append(todoItem.todoItem);
+      todoItem.todoItem.append(todoItem.btnWrapper);
+    }
+  }
   appForm.form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -111,6 +137,14 @@ function createTodoApp(container, title, key) {
     }
     completeTodoItem(todoItem.todoItem, todoItem.doneBtn);
     deleteTodoItem(todoItem.todoItem, todoItem.deleteBtn);
+
+    let localStorageData = localStorage.getItem(key);
+
+    if (localStorageData == null) {
+      todoArray = [];
+    } else {
+      todoArray = JSON.parse(localStorageData);
+    }
 
     const createItemObj = (arr) => {
       const itemObj = {};
