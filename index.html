@@ -11,11 +11,22 @@
     <title>Document</title>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        createTodoApp(document.getElementById("list-1"), "LIST-1", key ="list-1");
+        createTodoApp(
+          document.getElementById("list-1"),
+          "LIST-1",
+          (key = "list-1")
+        );
       });
     </script>
   </head>
   <body>
+    <div class="container">
+      <nav class="nav">
+        <a href="#"></a>
+        <a href="list-2.html"></a>
+        <a href="list-3.html"></a>
+      </nav>
+    </div>
     <div id="list-1" class="container"></div>
     <script src="todo-app.js"></script>
   </body>
